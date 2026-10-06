@@ -32,7 +32,7 @@ FILES = [
     "tests/test_stats_utils.py",
     "reports/phase_reports/phase1_findings.md",
     "reports/executive_summary.md",
-    "Project_Decision_Log/Phase-1_Decision_Log.md",
+    "Project_Decision_Log/Phase_1_Decision_Log.md",
     "dashboard/looker_studio_link.md",
     "logs/.gitkeep",
     "main.py",

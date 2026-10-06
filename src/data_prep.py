@@ -369,3 +369,46 @@ def save_processed_data(df: pd.DataFrame) -> None:
         "Processed dataset saved successfully. Shape: %s",
         df.shape,
     )
+    
+def load_processed_data() -> pd.DataFrame:
+    """
+    Load the prepared Marketing A/B Testing dataset.
+
+    Returns
+    -------
+    pd.DataFrame
+        Processed dataset loaded from the configured CSV path.
+    """
+    logger.info("Starting processed dataset loading.")
+    logger.info(
+        "Reading processed dataset from: %s",
+        PROCESSED_DATA_PATH,
+    )
+
+    try:
+        df = pd.read_csv(PROCESSED_DATA_PATH)
+
+        logger.info(
+            "Processed dataset loaded successfully. Shape: %s",
+            df.shape,
+        )
+
+        logger.info(
+            "Processed columns detected: %s",
+            list(df.columns),
+        )
+
+        return df
+
+    except FileNotFoundError:
+        logger.error(
+            "Processed dataset not found at: %s",
+            PROCESSED_DATA_PATH,
+        )
+        raise
+
+    except Exception:
+        logger.exception(
+            "Unexpected error while loading the processed dataset."
+        )
+        raise
