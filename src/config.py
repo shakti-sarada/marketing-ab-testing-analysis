@@ -24,6 +24,7 @@ LOGS_DIR = PROJECT_ROOT / "logs"
 
 RAW_DATA_PATH = RAW_DATA_DIR / "marketing_AB.csv"
 PROCESSED_DATA_PATH = PROCESSED_DATA_DIR / "marketing_ab_clean.csv"
+REPORTS_TABLES_DIR = REPORTS_DIR / "tables"
 
 
 # ============================================================

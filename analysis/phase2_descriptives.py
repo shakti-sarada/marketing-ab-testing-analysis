@@ -7,7 +7,13 @@ Inspect the observed allocation between the ad and PSA groups.
 
 import pandas as pd
 from scipy.stats import chi2_contingency
+
+from src.config import REPORTS_TABLES_DIR
+from src.logger import get_logger
 from src.data_prep import load_processed_data
+
+
+logger = get_logger(__name__)
 
 
 def main():
@@ -220,6 +226,39 @@ def main():
     print(f"Chi-square statistic: {chi2:.4f}")
     print(f"Degrees of freedom: {dof}")
     print(f"p-value: {p_value:.6f}")
+
+    # ============================================================
+    # Chi-Square Test: most_ads_hour vs test_group
+    # ============================================================
+
+    hour_table = pd.crosstab(
+        df["most_ads_hour"],
+        df["test_group"]
+    )
+
+    # Save complete 24-hour contingency table
+    REPORTS_TABLES_DIR.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    hour_table.to_csv(
+        REPORTS_TABLES_DIR / "most_ads_hour_by_test_group.csv"
+    )
+
+    logger.info(
+        "Saved most_ads_hour contingency table to: %s",
+        REPORTS_TABLES_DIR / "most_ads_hour_by_test_group.csv",
+    )
+
+    chi2_hour, p_hour, dof_hour, expected_hour = chi2_contingency(
+        hour_table
+    )
+
+    print("\nChi-Square Test: most_ads_hour vs test_group")
+    print(f"Chi-square statistic: {chi2_hour:.4f}")
+    print(f"Degrees of freedom: {dof_hour}")
+    print(f"p-value: {p_hour:.10f}")
 
 
 if __name__ == "__main__":
